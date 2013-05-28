@@ -1,0 +1,1 @@
+                <div id="<?php if(isset($id)) { echo $id;} else { echo "ajaxRequestError";}?>" class="msgBox errorBox hidden <?php if(isset($class)) { echo $class; }?>"><?php if($text != '') { echo $text; } else { ?>Une erreur s'est produite pendant l'exécution de la requête. Veuillez réessayer.<?php } ?></div>

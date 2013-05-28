@@ -1,0 +1,5 @@
+newsletterImage:
+    pattern: /logo_unemeilleureoffre/{key}
+    defaults: { _controller: FrontendFrontBundle:Newsletter:showTrackLogo}
+    requirements:
+      key: ([A-Za-z0-9\-_])+

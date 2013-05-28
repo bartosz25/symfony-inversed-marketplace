@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<container xmlns="http://symfony.com/schema/dic/services"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+<parameters>
+  <parameter key="security.user.provider.entity.class">Security\AuthenticationEntity</parameter>
+  <parameter key="security.form.listener">Security\AuthenticationFormListener</parameter>
+</parameters>
+  <services>
+    <service id="templating.helper.frontend" class="Frontend\FrontBundle\Helper\FrontendHelper">
+      <tag name="templating.helper" alias="frontend" />
+    </service>
+  <!--</services> 
+  <services>-->
+<service id="sec.prov" class="User\ProfilesBundle\Entity\Users" />
+
+    <service id="security.authentication.provider.auth" class="Security\AuthenticationProvider"
+    public="false">
+      <!--<argument type="service" id="sec.prov" />-->
+      <argument /> <!-- User provider --> 
+      <!--<call method="checkAuthentication"></call>
+      <call method="retrieveUser"></call>
+      <call method="supports"></call>-->
+    </service>
+  <!--</services> 
+  <services>-->
+    <service id="security.authentication.listener.auth" class="Security\AuthenticationListener" public="false">
+      <argument type="service" id="security.context"/>
+      <argument type="service" id="security.authentication.manager" />
+      <argument /> <!-- Provider-shared Key -->
+      <argument type="service" id="logger" on-invalid="null" />
+    </service>
+
+<service id="security.authentication.listener.form" class="%security.form.listener%" parent="security.authentication.listener.abstract"
+abstract="true">
+</service>
+
+  </services>
+</container>

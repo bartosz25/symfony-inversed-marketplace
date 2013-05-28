@@ -1,0 +1,1 @@
+                <div <?php if(isset($id)) { ?>id="<?php echo $id;?>"<?php } else { ?>id="sortLoader"<?php } ?> class="loader <?php if(!isset($hidden)) {?>hidden<?php } ?>"><p><?php echo $text;?></p></div>

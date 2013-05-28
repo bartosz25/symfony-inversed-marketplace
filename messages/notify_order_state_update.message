@@ -1,0 +1,5 @@
+L'utilisateur {USER} a mis à jour le statut de la commande no {ORDER}. 
+Vous pouvez <a href="{ORDER_URL}">la visualiser sur cette page</a>.
+
+L'ancien état : {OLD_STATE} 
+Le nouvel état : {NEW_STATE}

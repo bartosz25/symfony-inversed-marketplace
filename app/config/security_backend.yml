@@ -1,0 +1,49 @@
+security:
+    encoders:
+        Coconout\BackendBundle\Entity\Admins: plaintext
+
+    factories: 
+      - "%kernel.root_dir%/../src/Frontend/FrontBundle/Resources/config/security_factories.xml"
+
+    role_hierarchy:
+        ROLE_ADMIN_BACKEND:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN_BACKEND, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        backend:
+          # password_encoder: sha1
+          entity: { class: Coconout\BackendBundle\Entity\Admins, property: login}
+          # id: security.authentication.provider.auth
+
+    # encoders:
+        # User\ProfilesBundle\Entity\Users:
+            # algorithm:   sha1
+            # iterations: 1
+            # encode_as_base64: false
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+
+        backend:
+            pattern:    ^/
+            anonymous:  ~
+            auth: true
+            provider: backend
+            form_login:
+                check_path: /do
+                login_path: /login
+                username_parameter: username
+                password_parameter: password
+                post_only: true
+                default_target_path: /coconout/
+
+    access_control:
+        - { path: ^/coconout/.*, roles: ROLE_ADMIN_BACKEND }
+        - { path: ^/do, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /.*, roles: [ROLE_ADMIN_BACKEND, IS_AUTHENTICATED_ANONYMOUSLY] }
+        #- { path: ^/_internal, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+# TODO : voir ce que veut dire anonymous (si ce fragment est absent, je suis obligé de me connecter sur toutes les pages)

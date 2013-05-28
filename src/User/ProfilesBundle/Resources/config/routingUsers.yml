@@ -1,0 +1,5 @@
+registerConfirm:
+    pattern:  /confirmer/code/{code}
+    defaults: { _controller: UserProfilesBundle:Profiles:confirm}
+    requirements:
+      code: ([a-z0-9\-_])+

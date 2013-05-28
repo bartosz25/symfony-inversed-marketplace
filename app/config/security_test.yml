@@ -1,0 +1,39 @@
+security:
+    encoders:
+        User\ProfilesBundle\Entity\Users: plaintext
+
+    factories: 
+      - "%kernel.root_dir%/../src/Frontend/FrontBundle/Resources/config/security_factories.xml"
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        frontend:
+          # password_encoder: sha1
+          entity: { class: User\ProfilesBundle\Entity\Users, property: login}
+          # id: security.authentication.provider.auth
+
+    firewalls:
+        frontend:
+            pattern:  ^/
+            anonymous:  ~
+            security: true
+            auth: true
+            provider: frontend
+            # form_login:
+                # check_path: /do
+                # login_path: /connexion
+                # username_parameter: username
+                # password_parameter: password
+                # post_only: true
+                # default_target_path: /mon_compte/
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+    access_control:
+        # - { path: ^/mon_compte/.*, roles: ROLE_ADMIN }
+        # - { path: /.*, roles: [ROLE_ADMIN, IS_AUTHENTICATED_ANONYMOUSLY] }
+        - { path: /.*, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }

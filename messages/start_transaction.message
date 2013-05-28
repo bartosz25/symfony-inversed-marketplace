@@ -1,0 +1,14 @@
+L'utilisateur {USER} a déclenché la réalisation de la commande de votre offre {OFFER_NAME}. 
+
+Il a indiqué son adresse de livraison, ses moyens de livraisons préférés (pas contractuels) ainsi que le mode de paiement
+selon lequel il va vous verser la somme due pour l'acquisition de {OFFER_NAME}. 
+
+Votre rôle consiste maintenant à lui indiquer les coordonnées de paiement. Elles seront envoyées depuis 
+<a href="{URL_UPDATE}">la page de la mise à jour de l'offre</a> sur l'adresse e-mail de votre acheteur.
+
+Vous serez également obligé à indiquer le montant de la livraison qui va être inclus au montat total de la commande que 
+l'utilisateur devra vous payer. Si vous offrez les frais de port, indiquez 0 dans le champ respectif.
+
+Avant de déclencher la livraison, veuillez bien regarder une dernière fois si l'adresse de livraison correspond à celle 
+indiquée par l'utilisateur. Sachez que l'acheteur a la possibilité de modifier cette adresse jusqu'au moment où vous remplissez 
+<a href="{URL_UPDATE}">le formulaire</a>.

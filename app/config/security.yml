@@ -1,0 +1,77 @@
+security:
+    encoders:
+        User\ProfilesBundle\Entity\Users: plaintext
+
+    factories: 
+      - "%kernel.root_dir%/../src/Frontend/FrontBundle/Resources/config/security_factories.xml"
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN]
+        # ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        frontend:
+          # password_encoder: sha1
+          entity: { class: User\ProfilesBundle\Entity\Users, property: login}
+          # id: security.authentication.provider.auth
+
+    # encoders:
+        # User\ProfilesBundle\Entity\Users:
+            # algorithm:   sha1
+            # iterations: 1
+            # encode_as_base64: false
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        # logindo:
+            # pattern:  /mon_compte/do
+            # # security: false
+            # anonymous:  false
+            # auth:      true
+            # provider: frontend
+
+        # login:
+            # pattern:  ^/connexion$ 
+            # # security:      false
+            # anonymous:  ~
+# TODO : make that enregistrer and others URLs don't wait for the authenticated user
+        # frontend:
+            # pattern:    ^/mon_compte/.*
+            # anonymous:  false
+            # # security: true
+            # auth: true
+            # provider: frontend
+            # form_login:
+                # check_path: /mon_compte/do
+                # login_path: /connexion
+                # username_parameter: username
+                # password_parameter: password
+                # post_only: true
+                # default_target_path: /mon_compte/
+
+        frontend:
+            # pattern:    ^/mon_compte/.*
+            pattern:    ^/
+            anonymous:  ~
+            # security: true
+            auth: true
+            provider: frontend
+            form_login:
+                check_path: /do
+                login_path: /connexion
+                username_parameter: username
+                password_parameter: password
+                post_only: true
+                default_target_path: /mon_compte/
+
+    access_control:
+        - { path: ^/mon_compte/.*, roles: ROLE_ADMIN }
+        - { path: ^/do, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /.*, roles: [ROLE_ADMIN, IS_AUTHENTICATED_ANONYMOUSLY] }
+        #- { path: ^/_internal, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
+# TODO : voir ce que veut dire anonymous (si ce fragment est absent, je suis obligé de me connecter sur toutes les pages)

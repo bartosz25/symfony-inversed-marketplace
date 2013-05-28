@@ -1,0 +1,19 @@
+<html>
+<head>
+
+</head>
+<body>
+<img src="{IMAGE_URL}" />
+Voici les nouveautés dans les annonces et catégories auxquelles vous êtes abonné : 
+
+<p>Annonces :</p>
+<ul>
+{ADS_LIST}
+</ul>
+
+<p>Catégories :</p> 
+<ul>
+{CATEGORIES_LIST}
+</ul>
+</body>
+</html>

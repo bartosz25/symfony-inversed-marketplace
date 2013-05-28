@@ -1,0 +1,78 @@
+ajaxGetCategories:
+    pattern: /mon_compte/ajouter/annonce/categories
+    defaults: { _controller: CategoryCategoriesBundle:Categories:getAjaxList}
+    requirements:
+      _method:  POST
+
+ajaxGetCities:
+    pattern: /mon_compte/ajouter/annonce/villes
+    defaults: { _controller: GeographyCitiesBundle:Cities:getAjaxList}
+    requirements:
+      _method:  POST
+
+ajaxCheckAdOffer:
+    pattern: /mon_compte/verifier_offre/{offer}
+    defaults: { _controller: CatalogueOffersBundle:Offers:checkAjaxAdOffer}
+    requirements:
+      _method:  POST
+      offer: \d+
+
+ajaxGetOffersToAd:
+    pattern: /mon_compte/offres/chercher/annonce/{ad}/{page}
+    defaults: { _controller: CatalogueOffersBundle:Offers:ajaxGetToAd, page: 1}
+    requirements:
+      page: \d+
+      ad: \d+
+
+ajaxAdsCounter:
+    pattern: /analytics/annonces/{ad}
+    defaults: { _controller: AdItemsBundle:Items:ajaxCounter}
+    requirements:
+      ad: \d+
+
+# Prestashop routes
+ajaxGetPrestaCat:
+    pattern: /mon_compte/synchronisation/prestashop/categories/charger
+    defaults: { _controller: CatalogueOffersBundle:Prestashop:ajaxGetCategory}
+
+ajaxGetPrestaTag:
+    pattern: /mon_compte/synchronisation/prestashop/tag/charger
+    defaults: { _controller: CatalogueOffersBundle:Prestashop:ajaxGetTag}
+
+ajaxGetPrestaProd:
+    pattern: /mon_compte/synchronisation/prestashop/categories/charger/produit
+    defaults: { _controller: CatalogueOffersBundle:Prestashop:ajaxGetProduct}
+
+ajaxImportPrestaWindow:
+    pattern: /mon_compte/importer/offre/prestashop
+    defaults: { _controller: CatalogueOffersBundle:Prestashop:ajaxImportPresta}
+
+# eBay routes
+ajaxGetEbayItemsList:
+    pattern: /mon_compte/synchronisation/ajax/encheres/liste/charger/{page}
+    defaults: { _controller: CatalogueOffersBundle:Ebay:ajaxGetEbayItemsList, page: 1}
+    requirements:
+      page: \d+
+
+ajaxGetEbayItem:
+    pattern: /mon_compte/synchronisation/ajax/encheres/detail/charger/{item}
+    defaults: { _controller: CatalogueOffersBundle:Ebay:ajaxGetEbayItem}
+    requirements:
+      item: \d+
+
+ajaxPostEbayItem:
+    pattern: /mon_compte/synchronisation/ajax/encheres/detail/soumettre/{item}
+    defaults: { _controller: CatalogueOffersBundle:Ebay:ajaxSubmitEbayForm}
+    requirements:
+      item: \d+
+
+ajaxImportEbayWindow:
+    pattern: /mon_compte/importer/offre/ebay
+    defaults: { _controller: CatalogueOffersBundle:Ebay:ajaxImportEbay}
+
+# Index routes
+ajaxGetIndexOffers:
+    pattern: /index/offres/{page}
+    defaults: { _controller: CatalogueOffersBundle:Offers:getAjaxForIndex, page: 1}
+    requirements:
+      page: \d+

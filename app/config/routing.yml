@@ -1,0 +1,747 @@
+homeRoute:
+    pattern:  /
+    defaults: { _controller: FrontendFrontBundle:Frontend:index}
+
+accessDenied:
+    pattern:  /acces_interdit
+    defaults: { _controller: UserProfilesBundle:Profiles:deniedAccess}
+
+badElement:
+    pattern:  /element_non_trouve
+    defaults: { _controller: UserProfilesBundle:Profiles:badElement}
+
+search:
+    pattern:  /rechercher/{column}_{how}/{page}
+    defaults: { _controller: FrontendFrontBundle:Frontend:search, page: 1, column: titre, how: asc}
+    requirements:
+      page: \d+
+      column: (titre|categorie|date|ville|prix|catalogue)
+      how: (asc|desc)
+
+# Best tables routes
+bestOffers:
+    pattern: /offres/meilleures-ventes
+    defaults: { _controller: CatalogueOffersBundle:Offers:bestOf}
+
+bestAds:
+    pattern: /annonces/meilleurs-achats
+    defaults: { _controller: AdItemsBundle:Items:bestOf}
+
+# User routes
+register:
+    pattern:  /enregistrer
+    defaults: { _controller: UserProfilesBundle:Profiles:register}
+
+userFrontend:
+    resource: "@UserProfilesBundle/Resources/config/routingUsers.yml"
+
+forgottenCredentials:
+    pattern:  /identifiants_oublies
+    defaults: { _controller: UserProfilesBundle:Profiles:forgotten}
+
+forgottenConfirm:
+    pattern:  /identifiants_oublies/code/{code}
+    defaults: { _controller: UserProfilesBundle:Profiles:forgottenNew}
+    requirements:
+      code: ([a-z0-9\-_])+
+
+login:
+    pattern:  /connexion
+    defaults: { _controller: UserProfilesBundle:Profiles:login}
+
+loginDo:
+    # pattern:  /mon_compte/do
+    pattern:  /do
+    defaults: { _controller: UserProfilesBundle:Profiles:login}
+
+logout:
+    pattern:  /mon_compte/deconnexion
+    defaults: { _controller: UserProfilesBundle:Profiles:logout}
+
+usersList:
+    pattern:  /utilisateurs/{page}
+    defaults: { _controller: UserProfilesBundle:Profiles:usersList, page: 1}
+    requirements:
+      page: \d+
+
+userProfile:
+    pattern:  /utilisateurs/{url}-{id}
+    defaults: { _controller: UserProfilesBundle:Profiles:showProfile}
+    requirements:
+      url: ([A-Za-z0-9\-_])+
+      id: \d+
+
+# Account routes
+myAccount:
+    pattern:  /mon_compte/
+    defaults: { _controller: UserProfilesBundle:Profiles:account}
+
+accountPassword:
+    pattern:  /mon_compte/modifier/mot_de_passe
+    defaults: { _controller: UserProfilesBundle:Profiles:editPassword}
+
+accountEmail:
+    pattern:  /mon_compte/modifier/e_mail
+    defaults: { _controller: UserProfilesBundle:Profiles:editEmail}
+
+accountCard:
+    pattern:  /mon_compte/modifier/carte_de_visite
+    defaults: { _controller: UserProfilesBundle:Profiles:editCard}
+
+# Messages routes
+messageSend:
+    pattern: /mon_compte/messages/envoyer/{id}
+    defaults: { _controller: MessageMessagesBundle:Messages:send}
+    requirements:
+      id: \d+
+
+messageWrite:
+    pattern: /mon_compte/messages/ecrire/{id}
+    defaults: { _controller: MessageMessagesBundle:Messages:write}
+    requirements:
+      id: \d+
+
+messagesList:
+    pattern: /mon_compte/messages/lister/{column}_{how}/{page}
+    defaults: { _controller: MessageMessagesBundle:Messages:list, page: 1, column: titre, how: asc}
+    requirements:
+      page: \d+
+      column: (titre|auteur|date|etat|type)
+      how: (asc|desc)
+
+messageDelete:
+    pattern: /mon_compte/messages/supprimer/{id}
+    defaults: { _controller: MessageMessagesBundle:Messages:delete}
+    requirements:
+      id: \d+
+
+messageRead:
+    pattern: /mon_compte/messages/lire/{id}
+    defaults: { _controller: MessageMessagesBundle:Messages:read}
+    requirements:
+      id: \d+
+
+# Contacts routes
+contactsInvite:
+    pattern: /mon_compte/contacts/inviter/{user}
+    defaults: { _controller: UserFriendsBundle:Contacts:invite}
+    requirements:
+      user: \d+
+
+contactConfirm:
+    pattern: /mon_compte/contacts/invitation/{typeAction}/{user1}-{user2}
+    defaults: { _controller: UserFriendsBundle:Contacts:acceptOrDeny}
+    requirements:
+      typeAction: (accepter|refuser)
+      user1: \d+
+      user2: \d+
+
+contactDelete:
+    pattern: /mon_compte/contacts/supprimer/{user1}-{user2}
+    defaults: { _controller: UserFriendsBundle:Contacts:delete}
+    requirements:
+      user1: \d+
+      user2: \d+
+
+contactsList:
+    pattern: /mon_compte/contacts/afficher/{column}_{how}/{page}
+    defaults: { _controller: UserFriendsBundle:Contacts:showUserContacts, page: 1, column: login, how: asc}
+    requirements:
+      page: \d+
+      column: login
+      how: (asc|desc)
+
+# Ads lists
+adsAll:
+    pattern: /annonces/{column}_{how}/{page}
+    defaults: { _controller: AdItemsBundle:Items:listAllAds, page: 1, column: titre, how: asc}
+    requirements:
+      page: \d+
+      column: (titre|categorie|date|ville)
+      how: (asc|desc)
+
+adsByRegion:
+    pattern: /annonces/regions/{url}/{page}
+    defaults: { _controller: GeographyRegionsBundle:Regions:getAdsByRegion, page: 1}
+    requirements:
+      page: \d+
+      url: ([A-Za-z0-9\-_])+
+
+adsByCity:
+    pattern: /annonces/villes/{url}/{city}/{page}
+    defaults: { _controller: GeographyCitiesBundle:Cities:getAdsByCity, page: 1}
+    requirements:
+      page: \d+
+      url: ([A-Za-z0-9\-_])+
+      city: ([A-Za-z0-9\-_])+
+
+adsByTags:
+    pattern: /annonces/tags/{url}_{tag}/{column}_{how}/{page}
+    defaults: { _controller: AdItemsBundle:Items:getAdsByTags, page: 1, column: titre, how: asc}
+    requirements:
+      tag: \d+
+      page: \d+
+      url: ([A-Za-z0-9\-_])+
+      column: (titre|categorie|date|ville)
+      how: (asc|desc)
+
+# adsByCategory:
+    # pattern: /annonces/categories/{category}/{page}
+    # defaults: { _controller: CategoryCategoriesBundle:Categories:getAdsByCategory, page: 1}
+    # requirements:
+      # page: \d+
+      # category: ([A-Za-z0-9\-_])+
+
+adsAdd:
+    pattern: /mon_compte/annonces/ajouter
+    defaults: { _controller: AdItemsBundle:Items:addAd}
+
+adsEdit:
+    pattern: /mon_compte/annonces/editer/{id}
+    defaults: { _controller: AdItemsBundle:Items:editAd}
+    requirements:
+      id: \d+
+
+adsDelete:
+    pattern: /mon_compte/annonces/supprimer/{id}
+    defaults: { _controller: AdItemsBundle:Items:deleteAd}
+    requirements:
+      id: \d+
+
+adsEnd:
+    pattern: /mon_compte/annonces/finir/{id}
+    defaults: { _controller: AdItemsBundle:Items:endAd}
+    requirements:
+      id: \d+
+
+adsEndWithoutOffers:
+    pattern: /mon_compte/annonces/finir/sans_offres/{id}
+    defaults: { _controller: AdItemsBundle:Items:endAdWithoutOffers}
+    requirements:
+      id: \d+
+
+adsMyList:
+    pattern: /mon_compte/afficher/annonces/{column}_{how}/{page}
+    defaults: { _controller: AdItemsBundle:Items:listUserAds, page: 1, column: titre, how: asc}
+    requirements:
+      page: \d+
+      column: (titre|date)
+      how: (desc|asc)
+
+adsFrontend:
+    resource: "@AdItemsBundle/Resources/config/routingAds.yml"
+
+# adsShowOne:
+    # pattern: /annonces/categories/{category}/{url}_{id}
+    # defaults: { _controller: AdItemsBundle:Items:showAd}
+    # requirements:
+      # id: \d+
+      # category: ([A-Za-z0-9\-_])+
+      # url: ([A-Za-z0-9\-_])+
+
+adAcceptOffer:
+    pattern: /mon_compte/annonces/accepter/offre/{offer}_{ad}
+    defaults: { _controller: AdItemsBundle:AdsOffers:accept}
+    requirements:
+      offer: \d+
+      ad: \d+
+
+adRemoveOffer:
+    pattern: /mon_compte/annonces/supprimer/offre/{offer}_{ad}
+    defaults: { _controller: AdItemsBundle:AdsOffers:delete}
+    requirements:
+      offer: \d+
+      ad: \d+
+
+adsShowOffersList:
+    pattern: /mon_compte/annonces/offres_propositions/{column}_{how}/{page}
+    defaults: { _controller: AdItemsBundle:AdsOffers:listByUser, page:1, column: annonce, how: asc}
+    requirements:
+      page: \d+
+      column: (annonce|offre)
+      how: (asc|desc)
+
+adSubscribe:
+    pattern: /mon_compte/s_abonner/annonce/{ad}
+    defaults: { _controller: UserAlertsBundle:UsersAdsAlerts:subscribeAd}
+    requirements:
+      ad: \d+
+
+# Ads questions
+adsQuestion:
+    pattern: /annonces/categories/{category}/{url}_{id}/poser_question
+    defaults: { _controller: AdQuestionsBundle:Questions:write}
+    requirements:
+      id: \d+
+      category: ([A-Za-z0-9\-_])+
+      url: ([A-Za-z0-9\-_])+
+
+adsQuestionList:
+    pattern: /mon_compte/annonces/questions/lister/{column}_{how}/{page}
+    defaults: { _controller: AdQuestionsBundle:Questions:list, page: 1, column: etat, how: asc}
+    requirements:
+      page: \d+
+      column: (titre|date|etat|auteur)
+      how: (asc|desc)
+
+adsQuestionRead:
+    pattern: /mon_compte/annonces/questions/lire/{id}
+    defaults: { _controller: AdQuestionsBundle:Questions:read}
+    requirements:
+      id: \d+
+
+adsQuestionDelete:
+    pattern: /mon_compte/annonces/questions/supprimer/{id}
+    defaults: { _controller: AdQuestionsBundle:Questions:delete}
+    requirements:
+      id: \d+
+
+# Ads questions replies routes
+repliesReply:
+    pattern: /mon_compte/annonces/reponses/repondre/{id}
+    defaults: { _controller: AdQuestionsBundle:Replies:reply}
+    requirements:
+      id: \d+
+
+repliesEdit:
+    pattern: /mon_compte/annonces/reponses/editer/{id}
+    defaults: { _controller: AdQuestionsBundle:Replies:edit}
+    requirements:
+      id: \d+
+
+repliesDelete:
+    pattern: /mon_compte/annonces/reponses/supprimer/{id}
+    defaults: { _controller: AdQuestionsBundle:Replies:delete}
+    requirements:
+      id: \d+
+
+repliesList:
+    pattern: /mon_compte/annonces/reponses/lister/{column}_{how}/{page}
+    defaults: { _controller: AdQuestionsBundle:Replies:list, page: 1, column: question_titre, how: asc}
+    requirements:
+      page: \d+
+      column: (question_titre|annonce_nom|date)
+      how: (asc|desc)
+
+# Offers routes
+offersAll:
+    pattern: /offres/{column}_{how}/{page}
+    defaults: { _controller: CatalogueOffersBundle:Offers:listAllOffers, page: 1, column: titre, how: asc}
+    requirements:
+      page: \d+
+      column: (titre|prix|date|categorie|catalogue)
+      how: (asc|desc)
+
+offersAdd:
+    pattern: /mon_compte/catalouge/ajouter_offre
+    defaults: { _controller: CatalogueOffersBundle:Offers:addOffer}
+
+offersEdit:
+    pattern: /mon_compte/editer/offres/{id}
+    defaults: { _controller: CatalogueOffersBundle:Offers:editOffer}
+    requirements:
+      id: \d+
+
+offersDelete:
+    pattern: /mon_compte/supprimer/offres/{id}
+    defaults: { _controller: CatalogueOffersBundle:Offers:deleteOffer}
+    requirements:
+      id: \d+
+
+offersDeleteQueue:
+    pattern: /mon_compte/supprimer/offres/per_queue
+    defaults: { _controller: CatalogueOffersBundle:Offers:deleteOffersQueue}
+
+offerShow:
+    pattern: /offres/{catalogue}-{catalogueId}/{offer}-{offerId}
+    defaults: { _controller: CatalogueOffersBundle:Offers:showOffer}
+    requirements:
+      catalogueId: \d+
+      catalogue: ([A-Za-z0-9\-_])+
+      offer: ([A-Za-z0-9\-_])+
+      offerId: \d+
+
+offersMyList:
+    pattern: /mon_compte/afficher/offres/{column}_{how}/{page}
+    defaults: { _controller: CatalogueOffersBundle:Offers:listUserOffers, page: 1, column: nom, how: asc}
+    requirements:
+      page: \d+
+      how: (asc|desc)
+      column: (date|nom)
+
+offersByTags:
+    pattern: /offres/tags/{url}_{tag}/{page}
+    defaults: { _controller: CatalogueOffersBundle:Offers:getOffersByTags, page: 1}
+    requirements:
+      tag: \d+
+      page: \d+
+      url: ([A-Za-z0-9\-_])+ 
+
+offerPropose:
+    pattern: /mon_compte/offres/proposer/{id}
+    defaults: { _controller: CatalogueOffersBundle:Offers:propose}
+    requirements:
+      id: \d+
+
+offerProposeSend:
+    pattern: /mon_compte/offres/proposer/envoyer/{id}/{ad}
+    defaults: { _controller: CatalogueOffersBundle:Offers:sendOffer}
+    requirements:
+      id: \d+
+      ad: \d+
+
+offerProposeBuy:
+    pattern: /mon_compte/offres/acheter/{offer}/{page}
+    defaults: { _controller: CatalogueOffersBundle:Offers:proposeBuy, page:1}
+    requirements:
+      offer: \d+
+      page: \d+
+
+offerPropositions:
+    pattern: /mon_compte/offres/propositions/{column}_{how}/{page}
+    defaults: { _controller: AdItemsBundle:AdsOffersPropositions:listPropositions, page:1, column: annonce, how: asc}
+    requirements:
+      page: \d+
+      column: (annonce|offre)
+      how: (asc|desc)
+
+offerPropositionsAction:
+    pattern: /mon_compte/offres/propositions/{action}/{offer}_{ad}
+    defaults: { _controller: AdItemsBundle:AdsOffersPropositions:acceptOrDeny}
+    requirements:
+      ad: \d+
+      offer: \d+
+      action: (accepter|refuser)
+
+offersInAds:
+    pattern: /mon_compte/offres/lister/actives/{column}_{how}/{page}
+    defaults: { _controller: AdItemsBundle:AdsOffers:listActivated, page:1, column: offre, how: asc}
+    requirements:
+      page: \d+
+      column: (date|offre|annonce)
+      how: (desc|asc)
+
+offerRemoveFromAd:
+    pattern: /mon_compte/offres/retirer/{offer}_{ad}
+    defaults: { _controller: AdItemsBundle:AdsOffers:removeFromAd}
+    requirements:
+      offer: \d+
+      ad: \d+
+
+offersByCategory:
+    pattern: /offres/categories/{category}/{page}
+    defaults: { _controller: CategoryCategoriesBundle:Categories:getOffersByCategory, page: 1}
+    requirements:
+      page: \d+
+      category: ([A-Za-z0-9\-_])+
+
+offersByRegion:
+    pattern: /offres/{url}/{page}
+    defaults: { _controller: GeographyRegionsBundle:Regions:getOffersByRegion, page: 1}
+    requirements:
+      page: \d+
+      url: ([A-Za-z0-9\-_])+
+
+offersByCity:
+    pattern: /offres/{url}/{city}/{page}
+    defaults: { _controller: GeographyCitiesBundle:Cities:getOffersByCity, page: 1}
+    requirements:
+      page: \d+
+      url: ([A-Za-z0-9\-_])+
+      city: ([A-Za-z0-9\-_])+ 
+
+offersImgUpl:
+    resource: "@CatalogueImagesBundle/Resources/config/routingImages.yml"
+
+offersImagesList:
+    pattern: /mon_compte/offres/lister/images/{column}_{how}/{id}/{page}
+    defaults: { _controller: CatalogueImagesBundle:Images:list, page: 1, id: 0, column: offre, how: asc}
+    requirements:
+      id: \d+
+      page: \d+
+      how: (asc|desc)
+      column: (offre|date)
+
+offersImagesAdd:
+    pattern: /mon_compte/images/ajouter/{id}
+    defaults: { _controller: CatalogueImagesBundle:Images:add}
+    requirements:
+      id: \d+
+
+offersImagesDelete:
+    pattern: /mon_compte/images/supprimer/{id}
+    defaults: { _controller: CatalogueImagesBundle:Images:delete}
+    requirements:
+      id: \d+
+
+# Catalogue routes
+catalogueAdd:
+    pattern: /mon_compte/catalouge/ajouter
+    defaults: { _controller: CatalogueOffersBundle:Catalogues:addCatalogue}
+
+catalogueEdit:
+    pattern: /mon_compte/catalouge/editer/{id}
+    defaults: { _controller: CatalogueOffersBundle:Catalogues:editCatalogue}
+    requirements:
+      id: \d+
+
+catalogueDelete:
+    pattern: /mon_compte/catalouge/supprimer/{id}
+    defaults: { _controller: CatalogueOffersBundle:Catalogues:deleteCatalogue}
+    requirements:
+      id: \d+
+
+catalogueMyList:
+    pattern: /mon_compte/afficher/catalogues/{column}_{how}/{page}
+    defaults: { _controller: CatalogueOffersBundle:Catalogues:listUserCatalogues, page: 1, column: nom, how: asc}
+    requirements:
+      page: \d+
+      column: (nom|nombre_offres)
+      how: (asc|desc)
+
+catalogueShow:
+    pattern: /catalogues/offres/{url}-{id}/{column}_{how}/{page}
+    defaults: { _controller: CatalogueOffersBundle:Catalogues:showCatalogue, page: 1, column: titre, how: asc}
+    requirements:
+      id: \d+
+      url: ([A-Za-z0-9\-_])+
+      page: \d+
+      column: (titre|prix|date|categorie)
+      how: (asc|desc)
+
+cataloguesByUser:
+    pattern: /utilisateur/{id}/catalogues/{page}
+    defaults: { _controller: CatalogueOffersBundle:Catalogues:listCataloguesByUser, page: 1}
+    requirements:
+      page: \d+
+      id: \d+ 
+
+# Orders routes
+orderUpdateData:
+    pattern: /mon_compte/commandes/actualiser/{id}/{page}
+    defaults: { _controller: OrderOrdersBundle:Orders:updateData, page: 1}
+    requirements:
+      id: \d+
+      page: \d+
+
+ordersList:
+    pattern: /mon_compte/commandes/lister/{column}_{how}/{page}
+    defaults: { _controller: OrderOrdersBundle:Orders:listByUser, page: 1, column: numero, how: desc}
+    requirements:
+      page: \d+
+      column: (numero|titre|etat)
+      how: (asc|desc)
+
+ordersCommentsList:
+    pattern: /mon_compte/commandes/commentaires/lister/{id}/{page}
+    defaults: { _controller: OrderOrdersBundle:OrdersComments:listByOrder, page: 1}
+    requirements:
+      id: \d+
+      page: \d+
+
+# Opinion routes
+opinionWrite:
+    pattern: /mon_compte/commandes/commenter/{id}
+    defaults: { _controller: AdOpinionsBundle:AdsOpinions:write}
+    requirements:
+      id: \d+
+
+opinionsList:
+    pattern: /mon_compte/commandes/commentaires/{type}/{column}_{how}/{page}
+    defaults: { _controller: AdOpinionsBundle:AdsOpinions:listByUser, page: 1, column: date, how: desc}
+    requirements:
+      page: \d+
+      type: (ecrits|recus)
+      column: (date|titre|note|commande)
+      date: (desc|asc)
+
+# Geographic bundle routes
+regionsList:
+    pattern: /regions/{page}
+    defaults: { _controller: GeographyRegionsBundle:Regions:listRegions, page: 1}
+    requirements:
+      page: \d+
+
+citiesList:
+    pattern: /villes/{page}
+    defaults: { _controller: GeographyCitiesBundle:Cities:listCities, page: 1}
+    requirements:
+      page: \d+
+
+# Categories routes
+categoriesList:
+    pattern: /categories/{page}
+    defaults: { _controller: CategoryCategoriesBundle:Categories:listCategories, page: 1}
+    requirements:
+      page: \d+
+
+categorySubscribe:
+    pattern: /mon_compte/s_abonner/categorie/{category}
+    defaults: { _controller: UserAlertsBundle:UsersCategoriesAlerts:subscribeCategory}
+    requirements:
+      category: \d+
+
+# Alerts
+alertsList:
+    pattern: /mon_compte/alertes/{type}/{column}_{how}
+    defaults: { _controller: UserAlertsBundle:UsersAlerts:listByUser, column : nom, how: asc}
+    requirements:
+      type: (categories|annonces)
+      column: (nom|date)
+      how: (asc|desc)
+
+alertDelete:
+    pattern: /mon_compte/alertes/supprimer/{type}/{id}
+    defaults: { _controller: UserAlertsBundle:UsersAlerts:delete}
+    requirements:
+      id: \d+
+      type: (categories|annonces)
+
+# Addresses routes
+addressesList:
+    pattern: /mon_compte/adresses/{column}_{how}/{page}
+    defaults: { _controller: UserAddressesBundle:Addresses:listUserAddresses, page: 1, column: intitule, how: asc}
+    requirements:
+      page: \d+
+      column: (intitule)
+      how: (asc|desc)
+
+addressAd:
+    pattern: /mon_compte/adresses/ajouter
+    defaults: { _controller: UserAddressesBundle:Addresses:addAddress}
+
+addressEdit:
+    pattern: /mon_compte/adresses/editer/{id}
+    defaults: { _controller: UserAddressesBundle:Addresses:editAddress}
+    requirements:
+      id: \d+ 
+
+addressDelete:
+    pattern: /mon_compte/adresses/supprimer/{id}
+    defaults: { _controller: UserAddressesBundle:Addresses:deleteAddress}
+    requirements:
+      id: \d+
+
+addressChoose:
+    pattern: /mon_compte/adresses/choisir/{id}
+    defaults: { _controller: UserAddressesBundle:Addresses:chooseAddress}
+    requirements:
+      id: \d+ 
+
+# RSS feeds
+rssAdsList:
+    pattern: /rss/annonces
+    defaults: { _controller: AdItemsBundle:Items:showAdsRss}
+
+rssOffersList:
+    pattern: /rss/offres
+    defaults: { _controller: CatalogueOffersBundle:Offers:showOffersRss}
+
+rssAdsByCategoryList:
+    pattern: /rss/annonces/{category}
+    defaults: { _controller: CategoryCategoriesBundle:Categories:getAdsRss}
+    requirements:
+      category: ([A-Za-z0-9\-_])+
+
+rssOffersByCategoryList:
+    pattern: /rss/offres/{category}
+    defaults: { _controller: CategoryCategoriesBundle:Categories:getOffersRss}
+    requirements:
+      category: ([A-Za-z0-9\-_])+
+
+# E-commerce platforms synchronization
+synchronizePrestashop:
+    pattern: /mon_compte/synchronisation/prestashop
+    defaults: { _controller: CatalogueOffersBundle:Prestashop:synchronizePrestashop}
+
+synchronizeMapPrestashop:
+    pattern: /mon_compte/synchronisation/prestashop/mapping
+    defaults: { _controller: CatalogueOffersBundle:Prestashop:mapPrestashopCategories}
+
+synchronizeCatPrestashop:
+    pattern: /mon_compte/synchronisation/prestashop/categories
+    defaults: { _controller: CatalogueOffersBundle:Prestashop:synchronizeCatPrestashop}
+
+synchronizeSuccessPrestashop:
+    pattern: /mon_compte/synchronisation/prestashop/succes
+    defaults: { _controller: CatalogueOffersBundle:Prestashop:successPrestashop}
+
+synchronizeReloadPrestashop:
+    pattern: /mon_compte/synchronisation/prestashop/categories/recharger
+    defaults: { _controller: CatalogueOffersBundle:Prestashop:reloadPrestashopCat}
+
+synchronizeDeletePrestashop:
+    pattern: /mon_compte/synchronisation/prestashop/categories/annuler
+    defaults: { _controller: CatalogueOffersBundle:Prestashop:cancelPrestashop}
+
+# eBay synchronization
+synchronizeEbay:
+    pattern: /mon_compte/synchronisation/ebay
+    defaults: { _controller: CatalogueOffersBundle:Ebay:synchronizeEbay}
+
+synchronizeEbayItems:
+    pattern: /mon_compte/synchronisation/ebay/encheres
+    defaults: { _controller: CatalogueOffersBundle:Ebay:synchronizeEbayItems}
+
+# Ajax actions
+ajaxRoutes:
+    resource: "@FrontendFrontBundle/Resources/config/routingAjax.yml"
+
+# Newsletter routes
+newsletterRoutes:
+    resource: "@FrontendFrontBundle/Resources/config/routingNewsletter.yml"
+
+# Cron jobs routes
+cronEndAds:
+    pattern: /finir-les-annonces
+    defaults: { _controller: CronTasksBundle:Ads:endAds}
+
+# Static routes
+staticPages:
+    pattern: /{page}
+    defaults: { _controller: FrontendFrontBundle:Frontend:static}
+    requirements:
+      category: ([A-Za-z0-9\-_])+
+# ajaxGetCategories:
+    # pattern: /mon_compte/ajouter/annonce/categories
+    # defaults: { _controller: CategoryCategoriesBundle:Categories:getAjaxList}
+    # requirements:
+      # _method:  POST
+
+# ajaxGetCities:
+    # pattern: /mon_compte/ajouter/annonce/villes
+    # defaults: { _controller: GeographyCitiesBundle:Cities:getAjaxList}
+    # requirements:
+      # _method:  POST
+
+# ajaxCheckAdOffer:
+    # pattern: /mon_compte/verifier_offre/{offer}
+    # defaults: { _controller: CatalogueOffersBundle:Offers:checkAjaxAdOffer}
+    # requirements:
+      # _method:  POST
+      # offer: \d+
+
+# ajaxGetOffersToAd:
+    # pattern: /mon_compte/offres/chercher/annonce/{ad}/{page}
+    # defaults: { _controller: CatalogueOffersBundle:Offers:ajaxGetToAd, page: 1}
+    # requirements:
+      # page: \d+
+      # ad: \d+
+
+# ajaxAdsCounter:
+    # pattern: /analytics/annonces/{ad}
+    # defaults: { _controller: AdItemsBundle:Items:ajaxCounter}
+    # requirements:
+      # ad: \d+
+
+# ajaxGetPrestaCat:
+    # pattern: /mon_compte/synchronisation/prestashop/categories/charger
+    # defaults: { _controller: CatalogueOffersBundle:Platforms:ajaxGetCategory}
+
+# ajaxGetPrestaTag:
+    # pattern: /mon_compte/synchronisation/prestashop/tag/charger
+    # defaults: { _controller: CatalogueOffersBundle:Platforms:ajaxGetTag}
+
+# ajaxGetPrestaProd:
+    # pattern: /mon_compte/synchronisation/prestashop/categories/charger/produit
+    # defaults: { _controller: CatalogueOffersBundle:Platforms:ajaxGetProduct}

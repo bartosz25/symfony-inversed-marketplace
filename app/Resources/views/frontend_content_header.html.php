@@ -1,0 +1,1 @@
+              <div class="textHeader"><?php echo $title;?></div><!-- textHeader-->

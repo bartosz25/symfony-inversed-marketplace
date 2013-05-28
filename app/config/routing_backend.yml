@@ -1,0 +1,294 @@
+login:
+    pattern:  /
+    defaults: { _controller: CoconoutBackendBundle:Auth:login}
+
+loginShow:
+    pattern:  /login
+    defaults: { _controller: CoconoutBackendBundle:Auth:login}
+
+loginDo:
+    pattern:  /do
+    defaults: { _controller: CoconoutBackendBundle:Auth:login}
+
+logout:
+    pattern:  /coconout/logout
+    defaults: { _controller: CoconoutBackendBundle:Auth:logout}
+
+adminHome:
+    pattern:  /coconout/
+    defaults: { _controller: CoconoutBackendBundle:Index:index}
+
+## Ads routes
+adsList:
+    pattern:  /coconout/ads/list/{page}
+    defaults: { _controller: CoconoutBackendBundle:Ads:list, page: 1}
+    requirements:
+      page: \d+
+
+adsEdit:
+    pattern:  /coconout/ads/edit/{id}
+    defaults: { _controller: CoconoutBackendBundle:Ads:edit}
+    requirements:
+      id: \d+
+
+adsDelete:
+    pattern:  /coconout/ads/delete/{id}
+    defaults: { _controller: CoconoutBackendBundle:Ads:delete}
+    requirements:
+      id: \d+
+
+adsAcceptOrDeny:
+    pattern:  /coconout/ads/{actionName}/{id}
+    defaults: { _controller: CoconoutBackendBundle:Ads:acceptOrDeny}
+    requirements:
+      actionName: (accept|deny)
+      id: \d+
+
+adsListNew:
+    pattern:  /coconout/ads/list/new/{page}
+    defaults: { _controller: CoconoutBackendBundle:Ads:listNew, page: 1}
+    requirements:
+      page: \d+
+
+adsFrontend:
+    resource: "@AdItemsBundle/Resources/config/routingAds.yml"
+
+## Offers routes
+offersList:
+    pattern:  /coconout/offers/list/{page}
+    defaults: { _controller: CoconoutBackendBundle:Offers:list, page: 1}
+    requirements:
+      page: \d+
+
+offersEdit:
+    pattern:  /coconout/offers/edit/{id}
+    defaults: { _controller: CoconoutBackendBundle:Offers:edit}
+    requirements:
+      id: \d+
+
+offersDelete:
+    pattern:  /coconout/offers/delete/{id}
+    defaults: { _controller: CoconoutBackendBundle:Offers:delete}
+    requirements:
+      id: \d+
+
+## Offers images routes
+offersImgList:
+    pattern:  /coconout/offers/images/list/{page}
+    defaults: { _controller: CoconoutBackendBundle:OffersImages:list, page: 1}
+    requirements:
+      page: \d+
+
+offersImgEdit:
+    pattern:  /coconout/offers/images/edit/{id}
+    defaults: { _controller: CoconoutBackendBundle:OffersImages:edit}
+    requirements:
+      id: \d+
+
+offersImgDelete:
+    pattern:  /coconout/offers/images/delete/{id}
+    defaults: { _controller: CoconoutBackendBundle:OffersImages:delete}
+    requirements:
+      id: \d+
+
+offersImgUpl:
+    resource: "@CatalogueImagesBundle/Resources/config/routingImages.yml"
+
+## Catalogues routes
+cataloguesList:
+    pattern:  /coconout/catalogues/list/{page}
+    defaults: { _controller: CoconoutBackendBundle:Catalogues:list, page: 1}
+    requirements:
+      page: \d+
+
+cataloguesEdit:
+    pattern:  /coconout/catalogues/edit/{id}
+    defaults: { _controller: CoconoutBackendBundle:Catalogues:edit}
+    requirements:
+      id: \d+
+
+cataloguesDelete:
+    pattern:  /coconout/catalogues/delete/{id}
+    defaults: { _controller: CoconoutBackendBundle:Catalogues:delete}
+    requirements:
+      id: \d+
+
+## Users routes
+usersList:
+    pattern:  /coconout/users/list/{page}
+    defaults: { _controller: CoconoutBackendBundle:Users:list, page: 1}
+    requirements:
+      page: \d+
+
+usersEdit:
+    pattern:  /coconout/users/edit/{id}
+    defaults: { _controller: CoconoutBackendBundle:Users:edit}
+    requirements:
+      id: \d+
+
+usersDelete:
+    pattern:  /coconout/users/delete/{id}
+    defaults: { _controller: CoconoutBackendBundle:Users:delete}
+    requirements:
+      id: \d+
+
+usersDeleteAccount:
+    pattern:  /coconout/users/delete/account/{id}
+    defaults: { _controller: CoconoutBackendBundle:Users:deleteAccount}
+    requirements:
+      id: \d+
+
+usersActivate:
+    pattern:  /coconout/users/activate/{id}
+    defaults: { _controller: CoconoutBackendBundle:Users:activate}
+    requirements:
+      id: \d+
+
+usersSendCode:
+    pattern:  /coconout/users/send/codes/{id}
+    defaults: { _controller: CoconoutBackendBundle:Users:sendCodes}
+    requirements:
+      id: \d+
+
+userFrontend:
+    resource: "@UserProfilesBundle/Resources/config/routingUsers.yml"
+
+## Tags routes
+tagsList:
+    pattern:  /coconout/tags/list/{page}
+    defaults: { _controller: CoconoutBackendBundle:Tags:list, page: 1}
+    requirements:
+      page: \d+
+
+tagsAdd:
+    pattern:  /coconout/tags/add
+    defaults: { _controller: CoconoutBackendBundle:Tags:add}
+
+tagsEdit:
+    pattern:  /coconout/tags/edit/{id}
+    defaults: { _controller: CoconoutBackendBundle:Tags:edit}
+    requirements:
+      id: \d+
+
+tagsDelete:
+    pattern:  /coconout/tags/delete/{id}
+    defaults: { _controller: CoconoutBackendBundle:Tags:delete}
+    requirements:
+      id: \d+
+
+## Questions routes
+questionsList:
+    pattern:  /coconout/questions/list/{page}
+    defaults: { _controller: CoconoutBackendBundle:Questions:list, page: 1}
+    requirements:
+      page: \d+
+
+questionsEdit:
+    pattern:  /coconout/questions/edit/{id}
+    defaults: { _controller: CoconoutBackendBundle:Questions:edit}
+    requirements:
+      id: \d+
+
+questionsDelete:
+    pattern:  /coconout/questions/delete/{id}
+    defaults: { _controller: CoconoutBackendBundle:Questions:delete}
+    requirements:
+      id: \d+
+
+## Replies routes
+repliesList:
+    pattern:  /coconout/replies/list/{page}
+    defaults: { _controller: CoconoutBackendBundle:Replies:list, page: 1}
+    requirements:
+      page: \d+
+
+repliesEdit:
+    pattern:  /coconout/replies/edit/{id}
+    defaults: { _controller: CoconoutBackendBundle:Replies:edit}
+    requirements:
+      id: \d+
+
+repliesDelete:
+    pattern:  /coconout/replies/delete/{id}
+    defaults: { _controller: CoconoutBackendBundle:Replies:delete}
+    requirements:
+      id: \d+
+
+## Cache routes
+cacheGenerate:
+    pattern:  /coconout/cache/generate
+    defaults: { _controller: CoconoutBackendBundle:Cache:make}
+
+cacheGenerateSeo:
+    pattern:  /coconout/cache/generate_seo
+    defaults: { _controller: CoconoutBackendBundle:Cache:makeSeo}
+
+cacheClean:
+    pattern:  /coconout/cache/clean
+    defaults: { _controller: CoconoutBackendBundle:Cache:clean}
+
+cacheCleanDirectory:
+    pattern:  /coconout/cache/clean/{directory}
+    defaults: { _controller: CoconoutBackendBundle:Cache:cleanDirectory}
+    requirements:
+      directory: ([A-Za-z]+)
+
+# Test routes
+accessTests:
+    pattern:  /coconout/access/list
+    defaults: { _controller: CoconoutBackendBundle:TestsAccess:list}
+
+accessTestsExecute:
+    pattern:  /coconout/access/execute/{id}
+    defaults: { _controller: CoconoutBackendBundle:TestsAccess:execute}
+    requirements:
+      id: \d+
+
+accessTestsHistory:
+    pattern:  /coconout/access/history/{id}
+    defaults: { _controller: CoconoutBackendBundle:TestsAccessHistory:history}
+    requirements:
+      id: \d+
+
+# Newsletters routes
+newslettersList:
+    pattern:  /coconout/newsletters/list/{page}
+    defaults: { _controller: CoconoutBackendBundle:Newsletters:list, page : 1}
+    requirements:
+      page: \d+
+
+newslettersSend:
+    pattern:  /coconout/newsletters/send/{page}
+    defaults: { _controller: CoconoutBackendBundle:Newsletters:send, page : 1}
+    requirements:
+      page: \d+
+
+newslettersSendMail:
+    pattern:  /coconout/newsletters/send/mail/{user}
+    defaults: { _controller: CoconoutBackendBundle:Newsletters:sendMail}
+    requirements:
+      user: \d+
+
+newsletterRoutes:
+    resource: "@FrontendFrontBundle/Resources/config/routingNewsletter.yml"
+
+# Ajax actions
+ajaxRoutes:
+    resource: "@FrontendFrontBundle/Resources/config/routingAjax.yml"
+
+## DEV
+_assetic:
+    resource: .
+    type:     assetic
+
+_wdt:
+    resource: "@WebProfilerBundle/Resources/config/routing/wdt.xml"
+    prefix:   /_wdt
+
+_profiler:
+    resource: "@WebProfilerBundle/Resources/config/routing/profiler.xml"
+    prefix:   /_profiler
+
+_configurator:
+    resource: "@SensioDistributionBundle/Resources/config/routing/webconfigurator.xml"
+    prefix:   /_configurator

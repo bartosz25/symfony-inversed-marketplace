@@ -1,0 +1,4 @@
+L'utilisateur {USER} vous a envoyé les informations de payement pour <a href="{ORDER_URL}">la commande no {ORDER}</a>. 
+
+Voici ses données de payement : 
+{PAYMENT_DATA}

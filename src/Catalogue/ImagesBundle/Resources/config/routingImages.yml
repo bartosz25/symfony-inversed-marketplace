@@ -1,0 +1,18 @@
+offersImagesUpload:
+    pattern: /mon_compte/offres/ajouter/images/upload/{id}
+    defaults: { _controller: CatalogueImagesBundle:Images:uploadTemporary}
+    requirements:
+      id: ([A-Za-z0-9])+
+
+offersImagesUploadNew:
+    pattern: /mon_compte/offres/ajouter/images/nouvelle/{id}
+    defaults: { _controller: CatalogueImagesBundle:Images:uploadNewImage}
+    requirements:
+      id: \d+
+
+
+offersImagesDelTmp:
+    pattern: /mon_compte/offres/images/supprimer_temporaire/{id}
+    defaults: { _controller: CatalogueImagesBundle:Images:deleteTemporary}
+    requirements:
+      id: \d+

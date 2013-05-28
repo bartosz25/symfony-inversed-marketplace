@@ -1,0 +1,16 @@
+adsByCategory:
+    pattern: /annonces/categories/{category}/{column}_{how}/{page}
+    defaults: { _controller: CategoryCategoriesBundle:Categories:getAdsByCategory, page: 1, column: titre, how: asc}
+    requirements:
+      page: \d+
+      category: ([A-Za-z0-9\-_])+
+      column: (titre|date|ville|fourchette-de|fourchette-a)
+      how: (asc|desc)
+
+adsShowOne:
+    pattern: /annonces/categories/{category}/{url}_{id}
+    defaults: { _controller: AdItemsBundle:Items:showAd}
+    requirements:
+      id: \d+
+      category: ([A-Za-z0-9\-_])+
+      url: ([A-Za-z0-9\-_])+
